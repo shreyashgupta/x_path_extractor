@@ -6,16 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
       started=parseInt(result[tabs[0].id.toString()])
       // document.getElementById("h").innerHTML=started
 
-      document.getElementById("h").innerHTML=started
+      // document.getElementById("h").innerHTML=started
       var btn = document.getElementById('btn');
       btn.addEventListener('click', toggle);
       if(started)
       {
         document.getElementById("btn").innerHTML = 'Stop'
+        btn.className="stop"
       }
       else
       {
         document.getElementById("btn").innerHTML = 'Start'
+        btn.className="start"
       }
       });
   });
@@ -30,6 +32,7 @@ function toggle()
     if(started)
     {
         document.getElementById("btn").innerHTML = 'Start'
+        btn.className="start"
         chrome.tabs.sendMessage(tabs[0].id, "stop");
         let st=tabs[0].id.toString();
         var jsonfile = {};
@@ -40,6 +43,7 @@ function toggle()
     else
     {
         document.getElementById("btn").innerHTML = 'Stop'
+        btn.className="stop"
         chrome.tabs.sendMessage(tabs[0].id, "start");
         let st=tabs[0].id.toString();
         var jsonfile = {};
@@ -53,6 +57,7 @@ function toggle()
   
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+      console.log(request)
         sendResponse({status: true});
     }
     // return true;
